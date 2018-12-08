@@ -1,2 +1,28 @@
 .vscode/vscode-kanban.json
 hardware/GSM-Autostarter/GSM-Autostarter.bak
+hardware/GSM-Autostarter/GSM-Autostarter-cache.lib
+
+# Temporary files
+*.000
+*.bak
+*.bck
+*.kicad_pcb-bak
+*~
+_autosave-*
+*.tmp
+*-rescue.lib
+*-save.pro
+*-save.kicad_pcb
+
+# Netlist files (exported from Eeschema)
+*.net
+
+# Autorouter files (exported from Pcbnew)
+*.dsn
+*.ses
+
+# Exported BOM files
+*.xml
+*.csv
+
+hardware/GSM-Autostarter/bom.ini
