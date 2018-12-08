@@ -15,6 +15,9 @@
 #define LED_GREEN2 12
 #define LED 13
 
+#define USR_SW1 20
+#define USR_SW2 21
+
 #define OUT(X) pinMode(X, OUTPUT)
 #define IN(X) pinMode(X, INPUT)
 #define IN_PU(X) pinMode(X, INPUT_PULLUP)

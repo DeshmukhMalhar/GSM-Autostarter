@@ -10,7 +10,9 @@ void setup()
 	OUT(rly_OFF);
 	OUT(rly_ON);
 
-	IN(u_in);
-	IN(v_in);
-	IN(w_in);
+	IN_PU(u_in);
+	IN_PU(v_in);
+	IN_PU(w_in);
+	IN_PU(USR_SW1);
+	IN_PU(USR_SW2);
 }
