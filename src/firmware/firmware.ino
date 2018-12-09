@@ -1,9 +1,16 @@
 #include "pindefs.h"
-#include <SoftwareSerial.h>
+//#include <SoftwareSerial.h>
 
-SoftwareSerial gsm_serial(gsm_RX_L, gsm_TX_L);
+//SoftwareSerial gsm_serial(gsm_RX_L, gsm_TX_L);
+
 volatile uint8_t flag_u, flag_v, flag_w;
 volatile int32_t delVU, delWV, delUW, time_preU, time_preV, time_preW;
+
+//remember that there are 120 degree phase shifts, thus when normalised to range of 0-90deg, we get order as YELLOW->RED->BLUE
+//thus connection pattern is modified as follows
+//u->YELLOW
+//v->RED
+//w->BLUE
 
 ISR(INT0_vect)
 {
@@ -52,7 +59,7 @@ void setup()
 {
 	cli();
 	//external  interrupt setup
-	EIRCA |= (1 << ISC11) | (1 << ISC01); //setting int0 and int1 for falling edge,
+	EICRA |= (1 << ISC11) | (1 << ISC01); //setting int0 and int1 for falling edge,
 										  //falling edge gets us the positive peak of waveform
 	EIMSK |= (1 << INT1) | (1 << INT0);   //enable into and int1
 	PCICR |= (1 << PCIE2);				  //enable PCINT2 controlling PCINT23:16, masking others than PCINT18
@@ -76,7 +83,7 @@ void setup()
 	sei(); //turning on global interrupts
 
 	Serial.begin(9600);
-	gsm_serial.begin(9600);
+	//gsm_serial.begin(9600);
 }
 void loop()
 {

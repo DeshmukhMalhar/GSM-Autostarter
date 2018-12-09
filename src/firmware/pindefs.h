@@ -31,4 +31,4 @@ enum config_states
 {
 	normal,
 
-}
+};
