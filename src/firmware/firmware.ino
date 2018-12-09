@@ -34,14 +34,17 @@ ISR(INT1_vect)
 
 ISR(PCINT2_vect)
 {
-	if (!flag_w)
+	if ((PIND & (1 << PD2)) == 0)
 	{
-		time_preW = micros();
-		flag_w = true;
-		if (flag_v)
+		if (!flag_w)
 		{
-			delWV = time_preW - time_preV;
-			flag_v = false;
+			time_preW = micros();
+			flag_w = true;
+			if (flag_v)
+			{
+				delWV = time_preW - time_preV;
+				flag_v = false;
+			}
 		}
 	}
 }
