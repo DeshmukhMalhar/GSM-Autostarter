@@ -26,3 +26,6 @@ _autosave-*
 *.csv
 
 hardware/GSM-Autostarter/bom.ini
+hardware/GSM-Autostarter/GSM-Autostarter_.txt
+src/firmware/firmware.ino_atmega328p_8000000L.hex
+src/firmware/firmware.ino.with_bootloader_atmega328p_8000000L.hex
