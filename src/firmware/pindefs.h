@@ -18,9 +18,17 @@
 #define USR_SW1 20
 #define USR_SW2 21
 
+#define CONFIG (PINC & 0x0f) //reads config DIPsw and masks it
+
 #define OUT(X) pinMode(X, OUTPUT)
 #define IN(X) pinMode(X, INPUT)
 #define IN_PU(X) pinMode(X, INPUT_PULLUP)
 
 #define ON(X) digitalWrite(X, 1)
 #define OFF(X) digitalWrite(X, 0)
+
+enum config_states
+{
+	normal,
+
+}
