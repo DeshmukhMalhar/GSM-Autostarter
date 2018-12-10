@@ -1,7 +1,8 @@
 #include "pindefs.h"
 //#include <SoftwareSerial.h>
-
 //SoftwareSerial gsm_serial(gsm_RX_L, gsm_TX_L);
+
+#define DEBUG_L1
 
 volatile uint8_t flag_u, flag_v, flag_w;
 volatile int32_t delVU, delWV, delUW, time_preU, time_preV, time_preW, delU, delV, delW;
@@ -14,56 +15,52 @@ volatile int32_t delVU, delWV, delUW, time_preU, time_preV, time_preW, delU, del
 
 ISR(INT0_vect)
 {
-	time_preU = micros();
 	// if (!flag_u)
 	// {
-	// 	time_preU = micros();
-	// 	flag_u = true;
-	// 	if (flag_w)
-	// 	{
-	// 		delUW = time_preU - time_preW;
-	// 		flag_w = false;
-	// 	}
+	time_preU = micros();
+	flag_u = true;
+	// if (flag_w)
+	// {
+	delUW = time_preU - time_preW;
+	flag_w = false;
+	//}
 	// }
 }
 ISR(INT1_vect)
 {
-	time_preV = micros();
-
 	// if (!flag_v)
 	// {
-	// 	time_preV = micros();
-	// 	flag_v = true;
-	// 	if (flag_u)
-	// 	{
-	// 		delVU = time_preV - time_preU;
-	// 		flag_u = false;
-	// 	}
+	time_preV = micros();
+	flag_v = true;
+	// if (flag_u)
+	// {
+	delVU = time_preV - time_preU;
+	flag_u = false;
+	//}
 	// }
 }
 
 ISR(PCINT2_vect)
 {
-	//time_preW = micros();
-	if (read(4) == 0)
+	if ((PIND & PD4) == 0)
 	{
+		// if (!flag_w)
+		// {
 		time_preW = micros();
-		//		if (!flag_w)
-		// 		{
-		// 			time_preW = micros();
-		// 			flag_w = true;
-		// 			if (flag_v)
-		// 			{
-		// 				delWV = time_preW - time_preV;
-		// 				flag_v = false;
-		// 			}
-		// 		}
+		flag_w = true;
+		// if (flag_v)
+		// {
+		delWV = time_preW - time_preV;
+		flag_v = false;
+		//}
+		//}
 	}
 }
+
 void setup()
 {
-	cli();
 	//external  interrupt setup
+	cli();
 	EICRA |= (1 << ISC11) | (1 << ISC01); //setting int0 and int1 for falling edge,
 										  //falling edge gets us the positive peak of waveform
 	EIMSK |= (1 << INT1) | (1 << INT0);   //enable into and int1
@@ -94,19 +91,33 @@ void setup()
 }
 void loop()
 {
-	// Serial.print("delUW: ");
-	// Serial.println(delUW);
-	// Serial.print("delVU: ");
-	// Serial.println(delVU);
-	// Serial.print("delWV: ");
-	// Serial.println(delWV);
+	//very inportant loop
+	//if (flag_u && flag_v && flag_w)
+	// {
+	// 	flag_u = false;
+	// 	flag_v = false;
+	// 	flag_w = false;
 
+	// 	delUW = time_preW - time_preU;
+	// 	delVU = time_preU - time_preV;
+	// 	delWV = time_preV - time_preW;
+	// }
+
+	Serial.print("delUW: ");
+	Serial.println(delUW);
+	Serial.print("delVU: ");
+	Serial.println(delVU);
+	Serial.print("delWV: ");
+	Serial.println(delWV);
+
+#ifdef DEBUG_L1
 	Serial.print("time_preU:");
 	Serial.println(time_preU);
 	Serial.print("time_preV:");
 	Serial.println(time_preV);
 	Serial.print("time_preW:");
 	Serial.println(time_preW);
+#endif
 
 	delay(200);
 }
