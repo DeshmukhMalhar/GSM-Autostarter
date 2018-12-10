@@ -1,5 +1,5 @@
 #define pindefs_h
-
+#define SWREVISION "0.0.1"
 #define dbg_rx 0
 #define dbg_tx 1
 #define u_in 2
@@ -23,6 +23,7 @@
 #define OUT(X) pinMode(X, OUTPUT)
 #define IN(X) pinMode(X, INPUT)
 #define IN_PU(X) pinMode(X, INPUT_PULLUP)
+#define read(X) digitalRead(X)
 
 #define ON(X) digitalWrite(X, 1)
 #define OFF(X) digitalWrite(X, 0)
@@ -32,3 +33,5 @@ enum config_states
 	normal,
 
 };
+
+const String about = String("GSM-Autostarter \n") + String("Firmware Version: ") + String(SWREVISION) + String("\n") + String("BUILT on\n") + String(__DATE__) + String("\n") + String(__TIME__);
