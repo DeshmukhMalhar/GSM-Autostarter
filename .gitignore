@@ -33,3 +33,7 @@ src/output/
 .vscode/arduino.json
 .vscode/c_cpp_properties.json
 .vscode/settings.json
+.vscode/tasks.json
+.vscode/
+
+*.json
