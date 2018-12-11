@@ -30,3 +30,6 @@ hardware/GSM-Autostarter/GSM-Autostarter_.txt
 src/firmware/firmware.ino_atmega328p_8000000L.hex
 src/firmware/firmware.ino.with_bootloader_atmega328p_8000000L.hex
 src/output/
+.vscode/arduino.json
+.vscode/c_cpp_properties.json
+.vscode/settings.json
